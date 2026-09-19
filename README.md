@@ -50,3 +50,6 @@ nameColor=rainbow
 ## 许可
 
 MIT
+
+## 更新日志
+- 1.1.0：光环改为双面渲染（任意角度可见）；发光描边改由 Mixin 覆写 isCurrentlyGlowing(m_142038_)，不再被服务器元数据包冲掉。

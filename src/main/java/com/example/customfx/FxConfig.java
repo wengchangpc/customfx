@@ -22,11 +22,6 @@ public class FxConfig {
     /** 名字颜色：rainbow 或 #RRGGBB */
     public static String nameColorMode = "rainbow";
 
-    private static boolean glowApplied = false;
-
-    public static boolean isGlowApplied() { return glowApplied; }
-    public static void setGlowApplied(boolean v) { glowApplied = v; }
-
     public static Path file() {
         return Paths.get("config", "CustomFX", "settings.txt");
     }

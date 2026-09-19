@@ -7,14 +7,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.RenderNameTagEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -57,33 +53,9 @@ public class CustomFXMod {
         Minecraft.getInstance().execute(() -> LOGGER.info("[CustomFX] 客户端就绪。"));
     }
 
-    /** 客户端游戏事件：tick 发光描边、名字染色、指令注册 */
+    /** 客户端游戏事件：名字染色、指令注册（发光描边由 EntityMixin 接管） */
     @Mod.EventBusSubscriber(modid = CustomFXMod.MODID, value = Dist.CLIENT)
     public static class ClientEvents {
-
-        @SubscribeEvent
-        public static void onClientTick(TickEvent.ClientTickEvent event) {
-            if (event.phase != TickEvent.Phase.END) return;
-            Minecraft mc = Minecraft.getInstance();
-            Player player = mc.player;
-            if (player == null || mc.level == null) {
-                FxConfig.setGlowApplied(false);
-                return;
-            }
-            if (FxConfig.glow) {
-                // 只改本地客户端的实体标记，不会同步给服务器或其他玩家
-                player.setGlowingTag(true);
-                FxConfig.setGlowApplied(true);
-            } else if (FxConfig.isGlowApplied()) {
-                player.setGlowingTag(false);
-                FxConfig.setGlowApplied(false);
-            }
-        }
-
-        @SubscribeEvent
-        public static void onLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-            FxConfig.setGlowApplied(false);
-        }
 
         /** 只给自己的名字染色（改的是本地渲染内容，服务器零感知） */
         @SubscribeEvent

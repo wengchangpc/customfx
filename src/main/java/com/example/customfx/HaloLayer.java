@@ -52,11 +52,16 @@ public class HaloLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<Abs
             float c0 = Mth.cos(a0), s0 = Mth.sin(a0);
             float c1 = Mth.cos(a1), s1 = Mth.sin(a1);
 
-            // 一个环面四边形：外0 -> 内0 -> 内1 -> 外1
+            // 正面四边形：外0 -> 内0 -> 内1 -> 外1
             vertex(vc, mat, c0 * OUTER, s0 * OUTER, r, g, b, alpha);
             vertex(vc, mat, c0 * INNER, s0 * INNER, r, g, b, alpha);
             vertex(vc, mat, c1 * INNER, s1 * INNER, r, g, b, alpha);
             vertex(vc, mat, c1 * OUTER, s1 * OUTER, r, g, b, alpha);
+            // 反面四边形（反绕序）：保证俯视/仰视/任意角度都可见
+            vertex(vc, mat, c1 * OUTER, s1 * OUTER, r, g, b, alpha);
+            vertex(vc, mat, c1 * INNER, s1 * INNER, r, g, b, alpha);
+            vertex(vc, mat, c0 * INNER, s0 * INNER, r, g, b, alpha);
+            vertex(vc, mat, c0 * OUTER, s0 * OUTER, r, g, b, alpha);
         }
         poseStack.popPose();
     }
