@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="customfx"
+version="1.0.0"
+displayName="Custom FX (Self)"
+authors="customfx"
+description='''
+Client-side only visual FX for your own character: glow outline, colored name tag and rotating halo (self-visible).
+纯客户端模组：给角色加上发光描边、彩色名字与旋转光环，仅自己可见。
+'''
+displayTest="IGNORE_ALL_VERSION"
+
+[[dependencies.customfx]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.customfx]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="CLIENT"
